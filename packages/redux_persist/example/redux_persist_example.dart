@@ -1,11 +1,9 @@
-import 'dart:io';
-
 import 'package:redux/redux.dart';
 import 'package:redux_persist/redux_persist.dart';
 
 void main() async {
   final persistor = Persistor<State>(
-    storage: FileStorage(File("state.json")),
+    storage: MemoryStorage(),
     serializer: JsonSerializer<State>(State.fromJson),
   );
 
