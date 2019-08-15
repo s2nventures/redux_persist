@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'dart:typed_data';
 
 /// Interface for storage engines
@@ -9,28 +8,6 @@ abstract class StorageEngine {
 
   /// Load state (can return null)
   external Future<Uint8List> load();
-}
-
-/// Storage engine to save to file.
-class FileStorage implements StorageEngine {
-  /// File to save to.
-  final File file;
-
-  FileStorage(this.file);
-
-  @override
-  Future<Uint8List> load() async {
-    if (await file.exists()) {
-      return Uint8List.fromList(await file.readAsBytes());
-    }
-
-    return null;
-  }
-
-  @override
-  Future<void> save(Uint8List data) async {
-    await file.writeAsBytes(data ?? Uint8List(0));
-  }
 }
 
 /// Storage engine to save to memory.
